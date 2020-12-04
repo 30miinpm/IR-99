@@ -26,14 +26,24 @@ def changes():
         #     for line_S in fp:
         #         print(line_S) 
 
+        lines =[]
         text_file = open("stopwords.txt", "r")
         lines = text_file.readlines()
-        print (lines)
+
         
         text_file.close()
-        
 
-
+        new_list =[]
+        for word in tokens:
+            if word not in lines:
+                new_list.append(word)
+    #print(new_list)
+    x = len(lines)
+    y = len(new_list)
+    z = len(tokens)
+    print(x)
+    print(y)
+    print(z)
 
 changes()
 # print(text)
