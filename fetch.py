@@ -1,50 +1,41 @@
-import numpy as np
+
 import pandas as pd
-import csv
-import glob
 import re
-text=[]
-tokens = []
-stopwords=[]
+from nltk.tokenize import word_tokenize
 
-def changes():
-    df = pd.read_csv('ir-news-2-4.csv', encoding="utf-8")
-    text = df.content
-    #print(text)
-    for line in text:
+# text = "Nick likes to play football, however he is not too fond of tennis."
+# text_tokens = word_tokenize(text)
+# print(text_tokens)
 
-        ac1 = re.sub(r"\d", " ", line)
-        ac2 = re.sub(r'<[^>]+>', " ", ac1)
-        ac3 = re.sub(r'[^\w\s]', ' ', ac2)
-        ac4 = ac3
-        # print(ac4)
+text = list()
+df = pd.read_csv('ir-news-2-4.csv')
+text = df.content
+for line in text:
+    ac1 = re.sub(r"\d", " ", line)
+    ac2 = re.sub(r'<[^>]+>', " ", ac1)
+    ac3 = re.sub(r'[^\w\s]', ' ', ac2)
+    ac4 = ac3
+    tokens = []
 
-        tokens = ac4.split()
-
-        #print(tokens)
-        # with open("stopwords.txt") as fp:
-        #     for line_S in fp:
-        #         print(line_S)
-
-        lines =[]
-        text_file = open("stopwords.txt", "r")
-        lines = text_file.readlines()
+    #tokens = ac4.split(" ")
+    text_tokens = word_tokenize(ac4)
+   # print(text_tokens)
+   # print(tokens)
 
 
-        text_file.close()
+text_s = list()
+read_file = pd.read_csv('stop_words.txt')
+#read_file.columns = ['first']
+read_file.to_csv(r'stopwords_convert.csv', index=None)
 
-        new_list =[]
-        for word in tokens:
-            if word not in lines:
-                new_list.append(word)
-                tokens = new_list
-    #print(new_list)
-    x = len(lines)
-    y = len(new_list)
-    z = len(tokens)
-    print(x)
-    print(y)
-    print(z)
+df1 = pd.read_csv('stopwords_convert.csv')
 
-changes()
-# print(text)
+
+#print(df1)
+
+#text_s = df1.first
+#print(text_s)
+
+#tokens_without_sw = [word for word in text_tokens if not word in ]
+
+#print(tokens_without_sw)
